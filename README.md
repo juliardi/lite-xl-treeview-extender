@@ -8,3 +8,6 @@ Clone this repo into your plugins folder, or download `init.lua` file, rename it
 This plugin adds this menu to Lite XL :
 - `Move To..` : Move a file or directory to another path
 - `Duplicate File..` : Duplicate a file to the current directory
+
+## Screenshot
+![Screenshot](screenshot.png)
