@@ -37,14 +37,14 @@ local function move_object(old_abs_filename, new_abs_filename)
 end
 
 command.add(
-  function() 
+  function()
     return view.hovered_item ~= nil
       and is_dir(view.hovered_item.abs_filename) ~= true
   end, {
   ["treeview:duplicate-file"] = function()
+    local old_filename = view.hovered_item.abs_filename
     core.command_view:set_text(view.hovered_item.filename)
     core.command_view:enter("Filename", function(filename)
-      local old_filename = view.hovered_item.abs_filename
       local new_filename = core.project_dir .. PATHSEP .. filename
 
       if (is_object_exist(new_filename)) then
@@ -69,13 +69,13 @@ command.add(
 command.add(
   function()
     return view.hovered_item ~= nil
+      and view.hovered_item.abs_filename ~= core.project_dir
   end, {
   ["treeview:move-to"] = function()
+    local old_abs_filename = view.hovered_item.abs_filename
     core.command_view:set_text(view.hovered_item.abs_filename)
     core.command_view:enter("Move to",
       function(new_abs_filename)
-        local old_abs_filename = view.hovered_item.abs_filename
-
         if (is_object_exist(new_abs_filename)) then
           -- Ask before rewriting
           local opt = {
@@ -107,8 +107,8 @@ command.add(
 menu:register(
   function()
     return view.hovered_item
-      and is_dir(view.hovered_item.abs_filename) ~= true
-      or view.hovered_item.abs_filename ~= core.project_dir
+      and (is_dir(view.hovered_item.abs_filename) ~= true
+      or view.hovered_item.abs_filename ~= core.project_dir)
   end,
   {
     menu.DIVIDER,
