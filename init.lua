@@ -23,11 +23,15 @@ end
 -- checks whether an object is a directory
 local function is_dir(path)
   local file_info = system.get_file_info(path)
-  return file_info.type == "dir"
+  if (file_info ~= nil) then
+    return file_info.type == "dir"
+  end
+
+  return false
 end
 
 -- moves object (file or directory) to another path
-local function move_object(old_abs_filename, new_abs_filename) 
+local function move_object(old_abs_filename, new_abs_filename)
   local res, err = os.rename(old_abs_filename, new_abs_filename)
   if res then -- successfully renamed
     core.log("Moved \"%s\" to \"%s\"", old_abs_filename, new_abs_filename)
@@ -53,12 +57,17 @@ command.add(
       end
 
       local old_file = io.open(old_filename, "r")
-      local old_file_content = old_file:read("a")
-      old_file:close()
+      local old_file_content = ''
+      if (old_file ~= nil) then
+        old_file_content = old_file:read("a")
+        old_file:close()
+      end
 
       local file = io.open(new_filename, "a+")
-      file:write(old_file_content)
-      file:close()
+      if (file ~= nil) then
+        file:write(old_file_content)
+        file:close()
+      end
 
       core.root_view:open_doc(core.open_doc(new_filename))
       core.log("Duplicate %s to %s", old_filename, new_filename)
