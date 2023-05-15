@@ -6,8 +6,8 @@
 local core = require "core"
 local command = require "core.command"
 local view = require "plugins.treeview"
-local fsutils = require "plugins.treeview-menu-extender.fsutils"
-local actions = require "plugins.treeview-menu-extender.actions"
+local fsutils = require "plugins.treeview-extender.fsutils"
+local actions = require "plugins.treeview-extender.actions"
 
 local menu = view.contextmenu
 
@@ -16,6 +16,7 @@ command.add(
     return view.hovered_item ~= nil
       and fsutils.is_dir(view.hovered_item.abs_filename) ~= true
   end, {
+    ["treeview:duplicate-file"] = actions.duplicate_file,
     ["treeview:copy-to"] = actions.copy_to
   })
 
@@ -46,6 +47,7 @@ menu:register(
       and fsutils.is_dir(view.hovered_item.abs_filename) ~= true
   end,
   {
+    { text = "Duplicate File..", command = "treeview:duplicate-file" },
     { text = "Copy To..", command = "treeview:copy-to" },
   }
 )
