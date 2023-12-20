@@ -58,4 +58,8 @@ function fsutils.copy_file(source_abs_filename, dest_abs_filename)
   end
 end
 
+function fsutils.project_dir()
+  return core.project_dir or core.root_project().path
+end
+
 return fsutils

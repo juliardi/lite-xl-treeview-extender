@@ -23,7 +23,7 @@ command.add(
 command.add(
   function()
     return view.hovered_item ~= nil
-      and view.hovered_item.abs_filename ~= core.project_dir
+      and view.hovered_item.abs_filename ~= fsutils.project_dir()
   end, {
     ["treeview:move-to"] = actions.move_to
   })
@@ -32,7 +32,7 @@ menu:register(
   function()
     return view.hovered_item
       and (fsutils.is_dir(view.hovered_item.abs_filename) ~= true
-      or view.hovered_item.abs_filename ~= core.project_dir)
+      or view.hovered_item.abs_filename ~= fsutils.project_dir())
   end,
   {
     menu.DIVIDER,
@@ -57,7 +57,7 @@ menu:register(
 menu:register(
   function()
     return view.hovered_item
-      and view.hovered_item.abs_filename ~= core.project_dir
+      and view.hovered_item.abs_filename ~= fsutils.project_dir()
   end,
   {
     { text = "Move To..", command = "treeview:move-to" },
