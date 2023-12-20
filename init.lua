@@ -3,7 +3,6 @@
 -- Email : ardi93@gmail.com
 -- Github : github.com/juliardi
 
-local core = require "core"
 local command = require "core.command"
 local view = require "plugins.treeview"
 local fsutils = require "plugins.treeview-extender.fsutils"
